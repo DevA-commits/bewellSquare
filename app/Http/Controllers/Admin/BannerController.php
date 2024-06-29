@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -16,7 +17,7 @@ class BannerController extends Controller
         if ($banner) {
             $image = Banner::BannerImage($banner->image);
         } else {
-            $image = null;  
+            $image = null;
         }
 
         return view("Admin.pages.banner.index", compact("banner", "image"));
@@ -42,7 +43,7 @@ class BannerController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');   
+            $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/banner_img', $imageName);
             $data['image'] = $imageName;
@@ -51,6 +52,14 @@ class BannerController extends Controller
         $banner = Banner::first();
 
         if ($banner) {
+            // If a new image is uploaded, delete the old image
+            if ($request->hasFile('image')) {
+                $oldImage = $banner->image;
+                if ($oldImage) {
+                    Storage::delete('public/banner_img/' . $oldImage);
+                }
+            }
+
             $banner->update($data);
             return response()->json(['message' => 'Banner updated successfully!'], 200);
         } else {
@@ -61,4 +70,5 @@ class BannerController extends Controller
             return response()->json(['message' => 'Banner created successfully!'], 201);
         }
     }
+
 }
