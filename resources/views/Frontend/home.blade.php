@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
-    <link href="{{ url('assets/images/logo-sm.png') }}" rel="icon">
+    <link href="{{ $faviconUrl }}" rel="icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -95,42 +95,23 @@
         <section id="about" class="about section">
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
-                <div class="row align-items-xl-center gy-5">
+                <div class="">
 
-                    <div class="col-xl-5 content">
-                        <h3>About Us</h3>
+                    <div class="content">
+                        <h3 class="text-center">About Us</h3>
                         <h2>Crafting Timeless Spaces for 13 Years</h2>
-                        <p>BeWell Square has been a pioneer in the interior design industry for over a decade,
+                        <p><span class="fw-bold">BeWell Square</span> has been a pioneer in the interior design industry
+                            for over a decade,
                             specializing in creating timeless and transformative spaces that enrich lives. With a
                             passion for innovation and a commitment to excellence, we continue to redefine the standards
                             of design craftsmanship. At BeWell Square, we believe in crafting more than just spaces; we
                             create experiences that inspire and endure.</p>
+                        <h4>Our Vision</h4>
+                        <p>Our vision is to be the leading provider of
+                            innovative, high-quality interior design solutions that not only meet but exceed our
+                            clients' expectations. We aim to create environments that blend aesthetics, functionality,
+                            and sustainability, ensuring that each space is as unique as its occupants.</p>
                         {{-- <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a> --}}
-                    </div>
-
-                    <div class="col-xl-7">
-                        <div class="row gy-4 icon-boxes">
-
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                                <div class="icon-box">
-                                    <i class="bi bi-buildings"></i>
-                                    <h3>Our Commitment</h3>
-                                    <p>"The details are not the details. They make the design." - Charles Eames</p>
-                                </div>
-                            </div> <!-- End Icon Box -->
-
-
-                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
-                                <div class="icon-box">
-                                    <i class="bi bi-command"></i>
-                                    <h3>Our Philosophy</h3>
-                                    <p>"Design is not just what it looks like and feels like. Design is how it works." -
-                                        Steve Jobs</p>
-                                </div>
-                            </div> <!-- End Icon Box -->
-
-
-                        </div>
                     </div>
 
                 </div>
@@ -289,9 +270,10 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Our Product</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <h2>Our Products</h2>
+                <p>Discover our range of high-quality products designed to enhance your living spaces.</p>
             </div><!-- End Section Title -->
+
 
             <div class="container">
 
@@ -359,11 +341,14 @@
                         <div class="content px-xl-5">
                             <h3><span>Frequently Asked </span><strong>Questions</strong></h3>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                                Explore answers to common queries about our services and how we can assist you in
+                                creating the perfect space. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                                do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in
+                                reprehenderit.
                             </p>
                         </div>
                     </div>
+
 
                     <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
 
@@ -388,27 +373,6 @@
             </div>
 
         </section><!-- /Faq Section -->
-
-        {{-- <!-- Call To Action Section -->
-        <section id="call-to-action" class="call-to-action section">
-
-            <img src="assetses/img/cta-bg.jpg" alt="">
-
-            <div class="container">
-                <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="col-xl-10">
-                        <div class="text-center">
-                            <h3>Call To Action</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                officia deserunt mollit anim id est laborum.</p>
-                            <a class="cta-btn" href="#">Call To Action</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section><!-- /Call To Action Section --> --}}
 
         <!-- Testimonials Section -->
         <section id="testimonials" class="testimonials section">
@@ -590,7 +554,8 @@
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Contact</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <p>pursue your needs with us. Experience seamless connectivity and expert advice for all your interior
+                    design inquiries.</p>
             </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -612,10 +577,14 @@
                                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                                     <i class="bi bi-telephone"></i>
                                     <h3>Call Us</h3>
-                                    <p>{{ $contact->phone1 }}</p>
-                                    <p>{{ $contact->phone2 }}</p>
+                                    <p><span>+91 </span><a href="https://wa.me/91{{ $contact->phone1 }}"
+                                            target="_blank">{{ $contact->phone2 }}</a> <span
+                                            class="whats">WhatsApp</span></p>
+                                    <p><span>+91</span> {{ $contact->phone2 }}</p>
+
                                 </div>
-                            </div><!-- End Info Item -->
+                            </div>
+                            <!-- End Info Item -->
                         </div>
 
                     </div>
@@ -658,10 +627,11 @@
             <div class="row gy-4">
                 <div class="col-lg-5 col-md-12 footer-about">
                     <a href="index.html" class="logo d-flex align-items-center">
-                        <span class="sitename">Append</span>
+                        <span class="sitename">BeWell Square</span>
                     </a>
-                    <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita
-                        valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+                    <p>BeWellSquare specializes in transforming spaces through innovative interior design and renovation
+                        solutions. Our expert team crafts bespoke environments tailored to your lifestyle and business
+                        needs, ensuring quality and satisfaction every step of the way.</p>
                     <div class="social-links d-flex mt-4">
                         <a href=""><i class="bi bi-twitter-x"></i></a>
                         <a href=""><i class="bi bi-facebook"></i></a>
@@ -684,21 +654,20 @@
                 <div class="col-lg-2 col-6 footer-links">
                     <h4>Our Services</h4>
                     <ul>
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">Product Management</a></li>
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Graphic Design</a></li>
+                        <li><a href="#">Interior Design Solutions</a></li>
+                        <li><a href="#">Home Renovation</a></li>
+                        <li><a href="#">Custom Furniture</a></li>
+                        <li><a href="#">Office Space Planning</a></li>
+                        <li><a href="#">Lighting Design</a></li>
                     </ul>
                 </div>
 
+
                 <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
                     <h4>Contact Us</h4>
-                    <p>A108 Adam Street</p>
-                    <p>New York, NY 535022</p>
-                    <p>United States</p>
-                    <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                    <p><strong>Email:</strong> <span>info@example.com</span></p>
+                    <p>{{ $contact->address }}</p>
+                    <p class="mt-4"><strong>Phone:</strong> +91 <span>{{ $contact->phone1 }}</span></p>
+                    <p><strong>Email:</strong> <span>{{ $contact->email1 }}</span></p>
                 </div>
 
             </div>
@@ -707,11 +676,6 @@
         <div class="container copyright text-center mt-4">
             <p>© <span>Copyright</span> <strong class="sitename">Append</strong> <span>All Rights Reserved</span></p>
             <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you've purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
             </div>
         </div>
 

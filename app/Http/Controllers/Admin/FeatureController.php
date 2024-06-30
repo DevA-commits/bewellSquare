@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Feature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class FeatureController extends Controller
 {
@@ -83,33 +84,64 @@ class FeatureController extends Controller
             'describe_three' => $request->describe_three,
         ];
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/feature_img_one', $imageName);
-            $data['image'] = $imageName;
-        }
-
-        if ($request->hasFile('image2')) {
-            $image = $request->file('image2');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/feature_img_two', $imageName);
-            $data['image2'] = $imageName;
-        }
-
-        if ($request->hasFile('image3')) {
-            $image = $request->file('image3');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/feature_img_three', $imageName);
-            $data['image3'] = $imageName;
-        }
-
         $save = Feature::first();
 
         if ($save) {
+            // Delete old images if new ones are uploaded
+            if ($request->hasFile('image')) {
+                if ($save->image) {
+                    Storage::delete('public/feature_img_one/' . $save->image);
+                }
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/feature_img_one', $imageName);
+                $data['image'] = $imageName;
+            }
+
+            if ($request->hasFile('image2')) {
+                if ($save->image2) {
+                    Storage::delete('public/feature_img_two/' . $save->image2);
+                }
+                $image = $request->file('image2');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/feature_img_two', $imageName);
+                $data['image2'] = $imageName;
+            }
+
+            if ($request->hasFile('image3')) {
+                if ($save->image3) {
+                    Storage::delete('public/feature_img_three/' . $save->image3);
+                }
+                $image = $request->file('image3');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/feature_img_three', $imageName);
+                $data['image3'] = $imageName;
+            }
+
             $save->update($data);
             return response()->json(['message' => 'Feature updated successfully!'], 200);
         } else {
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/feature_img_one', $imageName);
+                $data['image'] = $imageName;
+            }
+
+            if ($request->hasFile('image2')) {
+                $image = $request->file('image2');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/feature_img_two', $imageName);
+                $data['image2'] = $imageName;
+            }
+
+            if ($request->hasFile('image3')) {
+                $image = $request->file('image3');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/feature_img_three', $imageName);
+                $data['image3'] = $imageName;
+            }
+
             $save = Feature::create($data);
             if (!$save) {
                 return response()->json(['message' => 'Something went wrong!'], 500);
@@ -117,4 +149,5 @@ class FeatureController extends Controller
             return response()->json(['message' => 'Feature created successfully!'], 201);
         }
     }
+
 }

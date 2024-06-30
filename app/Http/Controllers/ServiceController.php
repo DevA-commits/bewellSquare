@@ -122,47 +122,49 @@ class ServiceController extends Controller
             'description' => ['required', 'string', 'max:100'],
             'image' => ['nullable', 'file', 'mimes:svg'],
         ];
-
+    
         $messages = [];
-
+    
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
+    
         $service_id = decrypt($request->service_id);
-
+    
         $service = Service::find($service_id);
         if (!$service) {
             return response()->json(['message' => 'Service not found!'], 404);
         }
-
+    
         $service_data = [
             'title' => $request->title,
             'description' => $request->description,
         ];
-
+    
         if ($request->hasFile('image')) {
             // Handle image upload
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/service_img', $imageName);
-
-            $service_data['image'] = $imageName;
-
+    
+            // Delete the old image
             if ($service->image) {
                 Storage::delete('public/service_img/' . $service->image);
             }
+    
+            $service_data['image'] = $imageName;
         }
-
+    
         $update_service = $service->update($service_data);
-
+    
         if (!$update_service) {
             return response()->json(['message' => 'Something went wrong!'], 500);
         }
-
+    
         return response()->json(['message' => 'Service updated successfully!'], 200);
     }
+    
 
 
     public function delete($service_id)

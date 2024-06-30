@@ -102,6 +102,11 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link menu-link @if (Route::currentRouteName() == 'site.index') active @endif" href="{{ route('site.index') }}">
+                        <i class="ri-settings-2-line"></i> <span>Site Setting</span>
+                    </a>
+                </li>
             </ul>
 
 

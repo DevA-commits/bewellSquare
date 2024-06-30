@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Stats;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class StatsController extends Controller
 {
@@ -31,14 +32,14 @@ class StatsController extends Controller
             'client_satisfaction' => ['required'],
             'worker' => ['required'],
         ];
-
+    
         $messages = [];
-
+    
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
+    
         $data = [
             'experience' => $request->experience,
             'projects' => $request->projects,
@@ -46,17 +47,25 @@ class StatsController extends Controller
             'client_satisfaction' => $request->client_satisfaction,
             'worker' => $request->worker,
         ];
-
+    
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/stats_img', $imageName);
             $data['image'] = $imageName;
         }
-
+    
         $stats = Stats::first();
-
+    
         if ($stats) {
+            // If a new image is uploaded, delete the old image
+            if ($request->hasFile('image')) {
+                $oldImage = $stats->image;
+                if ($oldImage) {
+                    Storage::delete('public/stats_img/' . $oldImage);
+                }
+            }
+    
             $stats->update($data);
             return response()->json(['message' => 'Stats updated successfully!'], 200);
         } else {
@@ -67,4 +76,5 @@ class StatsController extends Controller
             return response()->json(['message' => 'Stats created successfully!'], 201);
         }
     }
+    
 }

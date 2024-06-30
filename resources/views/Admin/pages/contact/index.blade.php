@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="phone1" class="required">Phone 1</label>
+                                            <label for="phone1" class="required">Phone 1 [Must Be WhatsApp NO]</label>
                                             <input type="text" name="phone1" maxlength="15" id="phone1"
                                                 class="form-control" placeholder="Enter Phone Number"
                                                 value="{{ isset($Contact->phone1) ? $Contact->phone1 : '' }}">

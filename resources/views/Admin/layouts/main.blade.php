@@ -11,8 +11,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ url('assets/images/logo-sm.png') }}">
+    <!-- Favicons -->
+    <link href="{{ $faviconUrl }}" rel="icon">  
 
     <!--Swiper slider css-->
     <link href="{{ url('assets/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />

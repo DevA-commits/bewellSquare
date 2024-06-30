@@ -155,7 +155,6 @@
 
                 if (xhr.status == 201 || xhr.status == 200) {
                     $("#save")[0].reset();
-                    $('.modal').find('.btn-close').trigger('click');
 
                     Swal.fire({
                         position: "center",
@@ -164,6 +163,9 @@
                         showConfirmButton: true,
                         timer: 3000
                     });
+
+                    $('.modal').find('.btn-close').trigger('click');
+
                 }
             }).fail((error) => {
                 $(".error-text").text("");
