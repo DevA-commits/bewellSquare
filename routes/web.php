@@ -30,7 +30,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::group((['prefix' => '/login', 'as' => 'admin.', 'middleware' => 'admin.guest']), function () {
+Route::group(['prefix' => 'login', 'as' => 'admin.', 'middleware' => 'admin.guest'], function () {
     Route::get('/', [LoginController::class, 'index'])->name('login');
     Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticate');
 });
